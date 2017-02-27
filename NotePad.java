@@ -9,7 +9,7 @@ import javax.swing.undo.*;
 
 /**
  * @author even_and_just
- *
+ * @function A simple version of note pad application. 
  */
 
 public class NotePad extends JFrame implements ActionListener{
@@ -74,6 +74,7 @@ public class NotePad extends JFrame implements ActionListener{
         save = constructMenuItem(save, "Save (S)", 'S', "save");
         quit = constructMenuItem(quit, "Quit (Q)", 'Q', "quit");
         
+        // Construct Menu for 'Edit'
         menuEdit = constructMenu(menuEdit, "Edit", 'E');
         
         copy = constructMenuItem(copy, "Copy (C)", 'C', "copy");
@@ -84,51 +85,10 @@ public class NotePad extends JFrame implements ActionListener{
         clearAll = constructMenuItem(clearAll, "Clear All", ' ', "clearAll");
         findAndRep = constructMenuItem(findAndRep, "Find And Replace (R)", 'R', "findRep");
         
-        menuView = constructMenu(menuView, "View", ' ');
-        
-        background = constructMenuItem(background, "Background", ' ', "background");
-        font = constructMenuItem(font, "Font", ' ', "font");
-        
-        // Construct menu items in the first menu list
-//        open = new JMenuItem("Open (O)", new ImageIcon("src/icon1.png"));
-//        open.setMnemonic('O');
-//        open.addActionListener(this);     // Sign up listener for "open" button
-//        open.setActionCommand("open");
-//        
-//        save = new JMenuItem("Save (S)");
-//        save.setMnemonic('S');
-//        save.addActionListener(this);
-//        save.setActionCommand("save");
-        
-//        quit = new JMenuItem("Quit (Q)");
-//        quit.setMnemonic('Q');
-//        quit.addActionListener(this);
-//        quit.setActionCommand("quit");
-        
-        // Construct Menu for 'Edit'
-//        menuEdit = new JMenu("Edit");
-//        menuEdit.setMnemonic('E');
-        
-//        copy = new JMenuItem("Copy (C)");
-//        copy.setMnemonic('C');
-//        copy.addActionListener(this);
-//        copy.setActionCommand("copy");
-//        
-//        cut = new JMenuItem("Cut (X)");
-//        cut.setMnemonic('X');
-//        cut.addActionListener(this);
-//        cut.setActionCommand("cut");
-//        
-//        paste = new JMenuItem("Paste (V)");
-//        paste.setMnemonic('V');
-//        paste.addActionListener(this);
-//        paste.setActionCommand("paste");
-        
         // Construct menu bar
         this.setJMenuBar(menuBar);
         menuBar.add(menuFile);
         menuBar.add(menuEdit);
-        menuBar.add(menuView);
         
         menuFile.add(newFile);
         menuFile.add(open);
@@ -143,16 +103,12 @@ public class NotePad extends JFrame implements ActionListener{
         menuEdit.add(clearAll);
         menuEdit.add(findAndRep);
         
-        menuView.add(background);
-        menuView.add(font);
-        
-        // ???????????
         textArea.add(popMenu);
         jScrPane = new JScrollPane(textArea);
         this.add(jScrPane);
+        jScrPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jScrPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         
-//        jScrPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//        jScrPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         // Set the text area/pad
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(x, y);
@@ -160,12 +116,14 @@ public class NotePad extends JFrame implements ActionListener{
         this.setVisible(true);
         this.setTitle("NotePad");
         
+        // Register window listener
         this.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent we){
                 quit();
             }
         });
         
+        // Register mouse listener
         this.addMouseListener(new MouseAdapter(){
             public void mousePressed(MouseEvent e){
                 int mods = e.getModifiers();
@@ -194,6 +152,7 @@ public class NotePad extends JFrame implements ActionListener{
         return menuItem;
     }
     
+    // Construct popup menu
     public void constructPopMenu(JPopupMenu popMenu){
         JMenuItem copyPop = new JMenuItem("Copy (C)");
         JMenuItem cutPop = new JMenuItem("Cut (X)");
@@ -382,79 +341,6 @@ public class NotePad extends JFrame implements ActionListener{
         }
     }
     
-    public void setBackground(){
-//        this.getContentPane().setBackground(new Color(100,100,100));
-//        JPanel panelMain = new JPanel();
-//        getContentPane().add(panelMain);
-//        JFileChooser fileChooser = new JFileChooser();
-//        fileChooser.setDialogTitle("Please Choose the Picture");
-//        fileChooser.showOpenDialog(null);
-//        fileChooser.setVisible(true);
-//        String fileName = fileChooser.getSelectedFile().getAbsolutePath();
-//        Icon img = new ImageIcon(fileName);
-//        JLabel logo = new JLabel(img);
-//        this.getLayeredPane().add(logo, new Integer(Integer.MIN_VALUE));
-//        logo.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
-//        panelMain.setOpaque(false);
-//        panelMain.add(logo);
-        JDialog bgSet = new JDialog(this, "Background Color");
-        bgSet.setSize(300, 100);
-        bgSet.setLocation(300, 200);
-        JLabel color = new JLabel("  Color");
-        ButtonGroup buttonGroup = new ButtonGroup();
-        JPanel panel = new JPanel(new GridLayout(2,4));
-        JRadioButton jrbBlue = new JRadioButton("Blue");
-        JRadioButton jrbRed = new JRadioButton("Red");
-        JRadioButton jrbGreen = new JRadioButton("Green");
-        JButton applyButton = new JButton("Apply");
-        JButton cancelButton = new JButton("Cancel");
-        panel.add(color);
-        panel.add(jrbBlue);
-        panel.add(jrbRed);
-        panel.add(jrbGreen);
-        panel.add(applyButton);
-        panel.add(cancelButton);
-        buttonGroup.add(jrbBlue);
-        buttonGroup.add(jrbRed);
-        buttonGroup.add(jrbGreen);
-        bgSet.add(panel);
-        bgSet.setVisible(true);
-//        textArea.setBackground(Color.BLUE);
-    }
-    
-//    public void setFont(){
-//        JDialog fontDialog = new JDialog(this, "Font");
-//        fontDialog.setSize(150, 80);
-//        fontDialog.setLocation(300, 200);
-//        JLabel fontSize = new JLabel("Size");
-//        final JTextField textField = new JTextField(3);
-//        JButton applyButton = new JButton("Apply");
-//        JButton cancelButton = new JButton("Cancel");
-//        JPanel panel = new JPanel(new GridLayout(2,2));
-//        panel.add(fontSize);
-//        panel.add(textField);
-//        panel.add(applyButton);
-//        panel.add(cancelButton);
-//        fontDialog.add(panel);
-//        fontDialog.setVisible(true);
-//        
-//        applyButton.addActionListener(new ActionListener(){
-//            public void actionPerformed(ActionEvent e){
-//                String fontSize = textField.getText();
-//                start = textArea.getSelectionStart();
-//                end = textArea.getSelectionEnd();
-//                textArea.setSelectionColor(Color.BLUE);
-//                //......
-//            }
-//        });
-//        
-//        cancelButton.addActionListener(new ActionListener(){
-//            public void actionPerformed(ActionEvent e){
-//                // ......
-//            }
-//        });
-//    }
-    
     /* (non-Javadoc)
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      */
@@ -490,10 +376,6 @@ public class NotePad extends JFrame implements ActionListener{
             textArea.setText("");
         }else if(event.getActionCommand().equals("findRep")){
             findAndReplace();
-        }else if(event.getActionCommand().equals("background")){
-            setBackground();
-        }else if(event.getActionCommand().equals("font")){
-//            setFont();
         }
     }
 }
