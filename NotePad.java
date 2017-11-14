@@ -127,7 +127,7 @@ public class NotePad extends JFrame implements ActionListener{
         this.addMouseListener(new MouseAdapter(){
             public void mousePressed(MouseEvent e){
                 int mods = e.getModifiers();
-                if((mods&InputEvent.BUTTON3_MASK)!=0){
+                if((mods & InputEvent.BUTTON3_MASK) != 0){
                     popMenu.show(e.getComponent(), e.getX(), e.getY());
                 }
             }
@@ -136,7 +136,7 @@ public class NotePad extends JFrame implements ActionListener{
     
     public JMenu constructMenu(JMenu menu, String s, char c){
         menu = new JMenu(s);
-        if(c!=' '){
+        if(c != ' '){
             menu.setMnemonic(c);
         }
         return menu;
@@ -144,7 +144,7 @@ public class NotePad extends JFrame implements ActionListener{
     
     public JMenuItem constructMenuItem(JMenuItem menuItem, String s, char c, String cmd){
         menuItem = new JMenuItem(s);
-        if(c!=' '){
+        if(c != ' '){
             menuItem.setMnemonic(c);
         }
         menuItem.addActionListener(this);
@@ -189,13 +189,13 @@ public class NotePad extends JFrame implements ActionListener{
             
             StringBuilder sb = new StringBuilder();
             String sTmp = "";
-            while((sTmp=br.readLine())!=null){
-                sb.append(sTmp+"\r\n");
+            while((sTmp = br.readLine()) != null){
+                sb.append(sTmp + "\r\n");
             }
             
             textArea.setText(sb.toString());
             curTextContent = this.textArea.getText();
-            this.setTitle("NotePad - "+fileName);
+            this.setTitle("NotePad - " + fileName);
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -227,7 +227,7 @@ public class NotePad extends JFrame implements ActionListener{
             
             pw.print(this.textArea.getText());
             curTextContent = this.textArea.getText();
-            this.setTitle("NotePad - "+fileName);
+            this.setTitle("NotePad - " + fileName);
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -244,7 +244,7 @@ public class NotePad extends JFrame implements ActionListener{
     public void quit(){
         if(!textArea.getText().equals(curTextContent)){
             int num = JOptionPane.showConfirmDialog(null, "Contents Modified! Save And Quit?", "Warning", 1);
-            if(num==JOptionPane.OK_OPTION){
+            if(num == JOptionPane.OK_OPTION){
                 save();
                 System.exit(0);
             }
@@ -334,8 +334,8 @@ public class NotePad extends JFrame implements ActionListener{
         start = curWholeText.indexOf(textToFind, end);
         end = start + textToFind.length();
         
-        if(start==-1){
-            JOptionPane.showMessageDialog(null, textToFind+" Not Found!", "NotePad", JOptionPane.WARNING_MESSAGE);
+        if(start == -1){
+            JOptionPane.showMessageDialog(null, textToFind + " Not Found!", "NotePad", JOptionPane.WARNING_MESSAGE);
         }else{
             textArea.select(start, end);
         }
@@ -351,7 +351,7 @@ public class NotePad extends JFrame implements ActionListener{
         // Handle different cases according to ActionCommands
         if(event.getActionCommand().equals("new")){
             textArea.setText("");
-            init(200+(int)(Math.random()*10), 100+(int)(Math.random()*10));
+            init(200 + (int)(Math.random() * 10), 100 + (int)(Math.random() * 10));
         }else if(event.getActionCommand().equals("open")){
             open();
         }else if(event.getActionCommand().equals("save")){
